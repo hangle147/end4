@@ -25,6 +25,11 @@ public class ProductController {
     @Autowired
     private ProductTypeRepository productTypeRepository;
 
+    @GetMapping("/")
+    public String homeRedirect() {
+        return "redirect:/products";
+    }
+
     @GetMapping
     public String listProducts(Model model,
                                @RequestParam(defaultValue = "") String name,
