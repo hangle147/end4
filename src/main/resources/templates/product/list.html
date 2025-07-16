@@ -9,6 +9,9 @@
 
 <h2 class="text-center">Quản lý sản phẩm</h2>
 
+<div th:if="${message != null}" class="alert alert-warning" th:text="${message}"></div>
+
+
 <form method="get" th:action="@{/products}" class="row mb-3">
     <div class="col-md-3">
         <input class="form-control" type="text" name="name" th:value="${name}" placeholder="Nhập tên sản phẩm">
@@ -38,7 +41,7 @@
         <tr th:each="p : ${products.content}">
             <td><input type="checkbox" name="ids" th:value="${p.id}"></td>
             <td th:text="${p.name}"></td>
-            <td th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 3, 'POINT')} + ' VND'"></td>
+            <td th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 3, 'POINT') + ' VND'}"></td>
             <td th:text="${p.productType.name}"></td>
             <td th:text="${p.status}"></td>
             <td><a th:href="@{'/products/edit/' + ${p.id}}">Sửa</a></td>

@@ -25,10 +25,6 @@ public class ProductController {
     @Autowired
     private ProductTypeRepository productTypeRepository;
 
-    @GetMapping("/")
-    public String homeRedirect() {
-        return "redirect:/products";
-    }
 
     @GetMapping
     public String listProducts(Model model,
@@ -51,6 +47,17 @@ public class ProductController {
     @GetMapping("/create")
     public String createForm(Model model) {
         model.addAttribute("product", new Product());
+        model.addAttribute("types", productTypeRepository.findAll());
+        return "product/create";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Product product = productService.findById(id);
+        if (product == null) {
+            return "redirect:/products";
+        }
+        model.addAttribute("product", product);
         model.addAttribute("types", productTypeRepository.findAll());
         return "product/create";
     }
